@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS `messages`
+(
+    id Utf8,
+    author Utf8,
+    message Utf8,
+    created_at Utf8,
+    backend_replica Utf8,
+    PRIMARY KEY (id)
+);

@@ -1,0 +1,7 @@
+dist/
+*.zip
+*.log
+.env
+.DS_Store
+__pycache__/
+.pytest_cache/

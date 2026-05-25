@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Serverless Guestbook</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Yandex Cloud Serverless</p>
+        <h1>Гостевая книга</h1>
+        <p class="lead">Сообщения сохраняются в Serverless YDB, а запросы идут через API Gateway на разные реплики Cloud Functions.</p>
+      </div>
+      <div class="status-panel" aria-live="polite">
+        <div>
+          <span>Frontend</span>
+          <strong id="frontendVersion">v...</strong>
+        </div>
+        <div>
+          <span>Backend</span>
+          <strong id="backendVersion">ожидание</strong>
+        </div>
+        <div>
+          <span>Replica</span>
+          <strong id="backendReplica">-</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="composer" aria-label="Новое сообщение">
+      <label>
+        Имя
+        <input id="authorInput" maxlength="40" placeholder="Дмитрий" autocomplete="name">
+      </label>
+      <label>
+        Сообщение
+        <textarea id="messageInput" maxlength="500" rows="4" placeholder="Проверяю serverless-гостевую книгу"></textarea>
+      </label>
+      <div class="actions">
+        <button id="sendButton" type="button">Отправить</button>
+        <button id="refreshButton" type="button" class="secondary">Обновить</button>
+      </div>
+      <p id="formStatus" class="form-status" role="status"></p>
+    </section>
+
+    <section class="messages" aria-label="Сообщения">
+      <div class="section-title">
+        <h2>Сообщения</h2>
+        <span id="messageCount">0</span>
+      </div>
+      <div id="messagesList" class="messages-list"></div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: serverless-guestbook
+  version: 1.0.0
+
+x-yc-apigateway:
+  variables:
+    backend.tag:
+      default: "replica-a"
+      enum:
+        - "replica-a"
+        - "replica-b"
+      description: Cloud Function version tag used as a backend replica.
+
+paths:
+  /:
+    get:
+      operationId: frontendIndex
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: __BUCKET_NAME__
+        object: index.html
+        service_account_id: __SERVICE_ACCOUNT_ID__
+  /index.html:
+    get:
+      operationId: frontendIndexHtml
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: __BUCKET_NAME__
+        object: index.html
+        service_account_id: __SERVICE_ACCOUNT_ID__
+  /styles.css:
+    get:
+      operationId: frontendStyles
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: __BUCKET_NAME__
+        object: styles.css
+        service_account_id: __SERVICE_ACCOUNT_ID__
+  /app.js:
+    get:
+      operationId: frontendApp
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: __BUCKET_NAME__
+        object: app.js
+        service_account_id: __SERVICE_ACCOUNT_ID__
+  /api/health:
+    get:
+      operationId: apiHealth
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "${var.backend.tag}"
+        service_account_id: __SERVICE_ACCOUNT_ID__
+        payload_format_version: "1.0"
+  /api/messages:
+    get:
+      operationId: apiListMessages
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "${var.backend.tag}"
+        service_account_id: __SERVICE_ACCOUNT_ID__
+        payload_format_version: "1.0"
+    post:
+      operationId: apiCreateMessage
+      x-yc-apigateway-integration:
+        type: cloud_functions
+        function_id: __FUNCTION_ID__
+        tag: "${var.backend.tag}"
+        service_account_id: __SERVICE_ACCOUNT_ID__
+        payload_format_version: "1.0"
