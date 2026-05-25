@@ -127,7 +127,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\check-local.ps1
 После deploy можно распечатать готовые поля для формы:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\print-submission-info.ps1 -RepositoryUrl "https://github.com/<username>/serverless-guestbook"
+powershell -ExecutionPolicy Bypass -File .\scripts\print-submission-info.ps1
 ```
 
 Ссылка на каталог:
@@ -141,6 +141,8 @@ https://console.yandex.cloud/folders/<folder_id>
 ```text
 https://<api_gateway_domain>
 ```
+
+Эта ссылка появится только после будущего запуска `scripts/deploy-all.ps1 -Apply`: ее выдаст созданный API Gateway.
 
 Комментарий:
 

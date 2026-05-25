@@ -1,5 +1,5 @@
 param(
-    [string]$RepositoryUrl = "https://github.com/<username>/serverless-guestbook"
+    [string]$RepositoryUrl = "https://github.com/lyubdim/serverless-guestbook"
 )
 
 . "$PSScriptRoot\config.ps1"
@@ -10,7 +10,7 @@ if (-not $state) {
 }
 
 $folderUrl = "https://console.yandex.cloud/folders/$($state.folderId)"
-$appUrl = if ($state.gatewayDomain) { $state.gatewayDomain } else { "https://<api_gateway_domain>" }
+$appUrl = if ($state.gatewayDomain) { $state.gatewayDomain } else { "https://<api_gateway_domain> (available after deploy)" }
 
 Write-Host "Folder URL"
 Write-Host $folderUrl

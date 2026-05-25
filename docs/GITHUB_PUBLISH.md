@@ -11,7 +11,7 @@
 5. Выполните из папки проекта:
 
 ```powershell
-git remote add origin https://github.com/<username>/serverless-guestbook.git
+git remote add origin https://github.com/lyubdim/serverless-guestbook.git
 git branch -M main
 git push -u origin main
 ```
