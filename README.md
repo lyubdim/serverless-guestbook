@@ -64,6 +64,12 @@ $env:YC_PATH = "C:\path\to\yc.exe"
 powershell -ExecutionPolicy Bypass -File .\scripts\deploy-all.ps1 -Apply
 ```
 
+Перед будущим развертыванием можно выполнить локальные проверки:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\check-local.ps1
+```
+
 После успешного выполнения скрипт выведет:
 
 - ссылку на приложение;
@@ -117,6 +123,12 @@ powershell -ExecutionPolicy Bypass -File .\scripts\deploy-all.ps1 -Apply
 - `admin` на folder.
 
 ## Что отправлять на проверку
+
+После deploy можно распечатать готовые поля для формы:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\print-submission-info.ps1 -RepositoryUrl "https://github.com/<username>/serverless-guestbook"
+```
 
 Ссылка на каталог:
 
