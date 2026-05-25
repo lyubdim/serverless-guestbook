@@ -52,8 +52,14 @@ function Invoke-Yc {
     )
 
     $env:YC_CLI_INITIALIZATION_SILENCE = "true"
-    $output = & $Script:YcPath @Arguments 2>&1
-    $exitCode = $LASTEXITCODE
+    $oldErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $output = & $Script:YcPath @Arguments 2>&1
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+    }
 
     if ($exitCode -ne 0 -and -not $AllowFailure) {
         throw "yc failed: $($Arguments -join ' ')`n$output"
@@ -71,8 +77,14 @@ function Invoke-YcJson {
 
     $jsonArgs = @($Arguments + @("--format", "json"))
     $env:YC_CLI_INITIALIZATION_SILENCE = "true"
-    $output = & $Script:YcPath @jsonArgs 2>$null
-    $exitCode = $LASTEXITCODE
+    $oldErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $output = & $Script:YcPath @jsonArgs 2>$null
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+    }
 
     if ($exitCode -ne 0) {
         if ($AllowFailure) {
@@ -92,15 +104,31 @@ function Test-Yc {
     param([Parameter(Mandatory = $true)][string[]]$Arguments)
 
     $env:YC_CLI_INITIALIZATION_SILENCE = "true"
-    & $Script:YcPath @Arguments *> $null
-    return ($LASTEXITCODE -eq 0)
+    $oldErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        & $Script:YcPath @Arguments *> $null
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+    }
+
+    return ($exitCode -eq 0)
 }
 
 function Get-YcConfigValue {
     param([Parameter(Mandatory = $true)][string]$Name)
 
-    $value = & $Script:YcPath config get $Name 2>$null
-    if ($LASTEXITCODE -ne 0 -or -not $value) {
+    $oldErrorActionPreference = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try {
+        $value = & $Script:YcPath config get $Name 2>$null
+        $exitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $oldErrorActionPreference
+    }
+
+    if ($exitCode -ne 0 -or -not $value) {
         throw "yc config value '$Name' is not set."
     }
 
@@ -216,7 +244,10 @@ function New-FunctionPackage {
     }
 
     $functionDir = Join-Path $Script:RepoRoot "app\function"
-    Compress-Archive -Path (Join-Path $functionDir "*") -DestinationPath $Script:FunctionZipPath -Force
+    $packageFiles = Get-ChildItem -LiteralPath $functionDir -File | Where-Object {
+        $_.Name -in @("index.py", "requirements.txt")
+    }
+    Compress-Archive -Path $packageFiles.FullName -DestinationPath $Script:FunctionZipPath -Force
     return $Script:FunctionZipPath
 }
 
