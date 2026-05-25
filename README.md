@@ -150,11 +150,12 @@ https://d5d5aflltaku6uqcjvj1.y3q8o1jq.apigw.yandexcloud.net
 
 ```text
 Приложение: serverless-гостевая книга без аутентификации.
+Ссылка на приложение: https://d5d5aflltaku6uqcjvj1.y3q8o1jq.apigw.yandexcloud.net
 Frontend лежит в Object Storage и отдается через API Gateway. В UI показана версия frontend.
 Backend реализован на Yandex Cloud Functions: две версии функции с тегами replica-a и replica-b.
 API Gateway настроен через canary release 50/50, поэтому при обновлении/нескольких запросах видны разные backend replica.
 Данные сообщений сохраняются в Serverless YDB.
-Скрипты PowerShell для развертывания и обновления лежат в scripts/.
+Скрипты PowerShell для развертывания, обновления Serverless Functions, обновления Serverless Containers и создания схемы YDB лежат в scripts/.
 ```
 
 ## Очистка

@@ -24,9 +24,10 @@ Write-Host ""
 Write-Host "Comments"
 Write-Host @"
 Application: unauthenticated serverless guestbook.
+Application URL: $appUrl
 Frontend is stored in Object Storage and served through API Gateway. The UI shows frontend version v$($state.frontendVersion).
 Backend is implemented with Yandex Cloud Functions: two function versions tagged replica-a and replica-b. The UI shows backend version v$($state.backendVersion) and the current replica.
 API Gateway uses canary release 50/50, so repeated requests are routed to different backend replicas.
 Guestbook messages are stored in Serverless YDB table messages.
-PowerShell scripts for deployment, function updates, and YDB schema creation are in scripts/.
+PowerShell scripts for deployment, Serverless Functions updates, Serverless Containers updates, and YDB schema creation are in scripts/.
 "@
