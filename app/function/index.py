@@ -190,6 +190,13 @@ def route_http(event):
 
 def handler(event, context):
     try:
+        if isinstance(event, str):
+            text_event = event.strip()
+            if text_event == "migrate" or ("maintenanceAction" in text_event and "migrate" in text_event):
+                create_schema()
+                return {"ok": True, "table": TABLE_NAME, **meta()}
+            event = json.loads(text_event) if text_event else {}
+
         if event.get("maintenanceAction") == "migrate":
             create_schema()
             return {"ok": True, "table": TABLE_NAME, **meta()}

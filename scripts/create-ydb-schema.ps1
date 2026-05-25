@@ -17,7 +17,7 @@ if (-not $Apply) {
     exit 0
 }
 
-$payload = '{"maintenanceAction":"migrate"}'
+$payload = "migrate"
 $result = Invoke-Yc -Arguments @(
     "serverless", "function", "invoke", $state.functionName,
     "--tag", "replica-a",
@@ -25,5 +25,19 @@ $result = Invoke-Yc -Arguments @(
     "--folder-id", $state.folderId
 )
 
-Write-Host ($result | Out-String)
+$resultText = ($result | Out-String).Trim()
+Write-Host $resultText
+
+try {
+    $parsed = $resultText | ConvertFrom-Json
+    if ($parsed.PSObject.Properties.Match("statusCode").Count -gt 0 -and [int]$parsed.statusCode -ge 400) {
+        throw "Migration function returned HTTP $($parsed.statusCode): $($parsed.body)"
+    }
+    if ($parsed.PSObject.Properties.Match("ok").Count -gt 0 -and -not $parsed.ok) {
+        throw "Migration function returned ok=false."
+    }
+} catch {
+    throw "Could not confirm YDB schema migration success. Raw result: $resultText. Error: $_"
+}
+
 Write-Host "YDB schema migration completed."

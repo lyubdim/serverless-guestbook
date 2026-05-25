@@ -1,6 +1,10 @@
 # GitHub publish
 
-Репозиторий уже подготовлен локально. Облачные ресурсы при публикации на GitHub не создаются.
+Репозиторий опубликован на GitHub:
+
+<https://github.com/lyubdim/serverless-guestbook>
+
+Облачные ресурсы не создаются при публикации на GitHub; они создаются только скриптами с `-Apply`.
 
 ## Вариант 1: создать пустой репозиторий на GitHub вручную
 
@@ -33,10 +37,10 @@ gh repo create serverless-guestbook --public --source . --remote origin --push
 
 ## Текущее состояние
 
-Локальный первый коммит:
+Основная ветка:
 
 ```text
-79071ea Initial serverless guestbook
+main
 ```
 
 В репозитории нет IAM-токенов, ключей сервисных аккаунтов, паролей или созданных cloud state-файлов.

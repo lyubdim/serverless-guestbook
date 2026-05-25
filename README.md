@@ -4,9 +4,13 @@
 
 ## Текущий статус
 
-Репозиторий подготовлен к развертыванию, но облачные ресурсы не создаются автоматически. Пока нужен только код и скрипты, запускайте команды без `-Apply`: это dry-run режим.
+Приложение развернуто в Yandex Cloud на serverless-инфраструктуре.
 
-Создание ресурсов начинается только при явном запуске команд с `-Apply`.
+- Приложение: <https://d5d5aflltaku6uqcjvj1.y3q8o1jq.apigw.yandexcloud.net>
+- Каталог Yandex Cloud: <https://console.yandex.cloud/folders/b1gpd5k5on35lii7agu3>
+- Репозиторий: <https://github.com/lyubdim/serverless-guestbook>
+
+Скрипты без `-Apply` работают в dry-run режиме и не создают ресурсы.
 
 ## Что используется
 
@@ -133,16 +137,14 @@ powershell -ExecutionPolicy Bypass -File .\scripts\print-submission-info.ps1
 Ссылка на каталог:
 
 ```text
-https://console.yandex.cloud/folders/<folder_id>
+https://console.yandex.cloud/folders/b1gpd5k5on35lii7agu3
 ```
 
 Ссылка на приложение:
 
 ```text
-https://<api_gateway_domain>
+https://d5d5aflltaku6uqcjvj1.y3q8o1jq.apigw.yandexcloud.net
 ```
-
-Эта ссылка появится только после будущего запуска `scripts/deploy-all.ps1 -Apply`: ее выдаст созданный API Gateway.
 
 Комментарий:
 

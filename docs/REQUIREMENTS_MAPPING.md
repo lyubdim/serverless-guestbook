@@ -20,13 +20,12 @@
 | Скрипт полного развертывания | `scripts/deploy-all.ps1`. |
 | Доступ проверяющему | `scripts/grant-reviewer-access.ps1` выдает роли после добавления учетной записи в организацию. |
 | Репозиторий без секретов | `.gitignore` исключает `dist/`, zip-пакеты, `.env`, кэш Python. |
-| Пока не тратить деньги | Все скрипты без `-Apply` работают в dry-run режиме. |
+| Безопасный dry-run | Все скрипты без `-Apply` работают в dry-run режиме. |
 
-## Что останется сделать перед отправкой
+## Текущее состояние
 
-1. Залить репозиторий на GitHub.
-2. После получения сертификата выполнить `scripts/deploy-all.ps1 -Apply`.
-3. Проверить приложение по URL API Gateway.
-4. Добавить `digisturm@yandex.ru` в организацию.
-5. Выполнить `scripts/grant-reviewer-access.ps1 -Apply`.
-6. Отправить ссылку на каталог, репозиторий, приложение и комментарий из README.
+1. Репозиторий опубликован: <https://github.com/lyubdim/serverless-guestbook>.
+2. Приложение развернуто: <https://d5d5aflltaku6uqcjvj1.y3q8o1jq.apigw.yandexcloud.net>.
+3. Serverless YDB schema создана.
+4. API Gateway проверен: запросы попадают в `replica-a` и `replica-b`.
+5. Остается добавить проверяющего в организацию и выдать роли, если это еще не сделано.
